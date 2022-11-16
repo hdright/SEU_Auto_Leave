@@ -7,6 +7,8 @@ from urllib import parse
 
 import execjs
 import requests
+import random
+
 
 class Leave(object):
     def __init__(self, uname, pwd, path):
@@ -254,8 +256,14 @@ class Leave(object):
             post_info['XXDZ'] = "去无线谷科研"
         post_info['SQBH'] = ''
         now_time = datetime.datetime.now()
-        post_info["QJKSRQ"] = (now_time + datetime.timedelta(days=+1)).strftime("%Y-%m-%d 06:00")
-        post_info["QJJSRQ"] = (now_time + datetime.timedelta(days=+1)).strftime("%Y-%m-%d 23:59")
+        stah = str(random.randint(9,15))
+        minu = str(random.randint(0,59))
+        endh = str(random.randint(19,22))
+        stat = "%02i:%02i" % (stah, minu)
+        endt = "%02i:%02i" % (endh, minu)
+        
+        post_info["QJKSRQ"] = (now_time + datetime.timedelta(days=+1)).strftime("%Y-%m-%d "+stat)
+        post_info["QJJSRQ"] = (now_time + datetime.timedelta(days=+1)).strftime("%Y-%m-%d "+endt)
 
         save_url = self.urlBegin + 'modules/leaveApply/addLeaveApply.do'
         self.header['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8'
